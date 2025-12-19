@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Natalino - Turma de TI</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41; /* Verde clássico de terminal */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #terminal {
+            width: 100%;
+            max-width: 700px;
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            min-height: 300px;
+            overflow-y: auto;
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #00ff41;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .line { margin-bottom: 8px; line-height: 1.4; }
+        .success { color: #50fa7b; }
+        .warning { color: #f1fa8c; }
+        .highlight { color: #ff79c6; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="terminal">
+    <div id="output"></div>
+    <span class="cursor"></span>
+</div>
+
+<script>
+    const output = document.getElementById('output');
+    const messages = [
+        "> Iniciando sistema de festas v2.0.25...",
+        "> Carregando módulos de alegria................ [OK]",
+        "> Limpando bugs de 2024........................ [OK]",
+        "> Verificando nível de café.................... [ESTÁVEL]",
+        "> ",
+        "> MENSAGEM RECEBIDA DA TURMA DE TI:",
+        "> ----------------------------------------------",
+        "> FELIZ NATAL E UM ANO NOVO OPEN SOURCE!",
+        "> Que seu 2025 tenha:",
+        "> - Syntax Error: 0",
+        "> - Conexão: Fibra Ótica Mental",
+        "> - Deploy: Sucesso em Produção",
+        "> ----------------------------------------------",
+        "> Desejamos que cada linha de código em 2025",
+        "> aproxime você dos seus sonhos!",
+        "> ",
+        "> [SISTEMA]: Pressione F5 para reiniciar o ciclo de felicidade.",
+        "> Fim da transmissão."
+    ];
+
+    let lineIndex = 0;
+
+    function typeLine() {
+        if (lineIndex < messages.length) {
+            let lineDiv = document.createElement('div');
+            lineDiv.className = 'line';
+            output.appendChild(lineDiv);
+            
+            let charIndex = 0;
+            let currentText = messages[lineIndex];
+
+            function typeChar() {
+                if (charIndex < currentText.length) {
+                    lineDiv.innerHTML += currentText.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeChar, 30); // Velocidade da digitação
+                } else {
+                    lineIndex++;
+                    setTimeout(typeLine, 500); // Pausa entre linhas
+                }
+                // Scroll automático para o final
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+            typeChar();
+        }
+    }
+
+    window.onload = typeLine;
+</script>
+
+</body>
+</html>
